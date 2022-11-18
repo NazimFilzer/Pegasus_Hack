@@ -3,6 +3,7 @@ var cors = require('cors')
 require('dotenv').config()
 const mongoose = require('mongoose')
 const { protectUser } = require('./middlewares/auth')
+const { ApiGatewayManagementApi } = require('aws-sdk')
 
 const app = express()
 
@@ -40,15 +41,11 @@ app.use(express.json())
 app.use('/images', express.static('images'))
 
 app.use('/api/auth', require('./routes/authRoutes'))
-// app.use('/api/volunteer', protectUser, require('./routes/volunteerRoutes'))
-// app.use('/api/post', require('./routes/postRoutes'))
+app.use('/api/malls', require('./routes/malls'))
+app.use('/api/rooms', require('./routes/rooms'))
 
 // app.use('/api/hotel',)
 
-////// TEST/////////
-app.get('/', (req, res) => {
-  res.send('<p>Goto <a href="https://bonappletea.netlify.app">Bon Appetit</a></p>')
-})
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(`Ecommerce app listening for request`)
