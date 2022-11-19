@@ -40,6 +40,12 @@ const updateRoomAvailability = async (req, res, next) => {
                 },
             }
         );
+        const data = {
+            toEmail: req.userId.email,
+            subject: `The Parking Slot ${roomNumber} is booked`,
+            content: `The Parking Slot ${roomNumber} is booked for the dates ${req.body.dates}`
+        }
+        const response = await axios.post(process.env.EMAIL, data);
         res.status(200).json("Room status has been updated.");
     } catch (err) {
         next(err);
